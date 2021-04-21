@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<data>
+
+        <user>
+            <email>test2.1.2.2.w@gmail.com</email>
+            <passwd>qwertyip1</passwd>
+        </user>
+        <user>
+            <email>tesqi12s1d@gmail.com</email>
+            <passwd>Zaqwsx12</passwd>
+        </user>
+        <user>
+            <email>saddas1413@gmail.com</email>
+            <passwd>qwertyip1</passwd>
+        </user>
+        <user>
+            <email>rfvtyh123@gmail.com</email>
+            <passwd>qwertyip1</passwd>
+        </user>
+        <user>
+            <email>tacc17799@gmail.com</email>
+            <passwd>qwertyip1</passwd>
+        </user>
+
+    <sendto>my.test.0.0.1.00@gmail.com</sendto>
+    <messText>hello</messText>
+</data>
