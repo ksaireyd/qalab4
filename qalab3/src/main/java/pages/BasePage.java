@@ -15,7 +15,14 @@ import java.util.concurrent.TimeUnit;
 public class BasePage {
     InputStream inputStream;
     WebDriver driver;
-    public  Properties getPropValues() throws IOException {
+    Properties prop = getPropValues();
+
+    BasePage(WebDriver driver) throws IOException {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
+    public Properties getPropValues() throws IOException {
 
         Properties prop = new Properties();
         String propFileName = "config.properties";
@@ -29,20 +36,17 @@ public class BasePage {
         }
         return prop;
     }
-    Properties prop = getPropValues();
-    BasePage(WebDriver driver) throws IOException {
-        this.driver = driver;
-        PageFactory.initElements(driver,this);
-    }
-    public void implicityWaiter(){
+
+    public void implicityWaiter() {
         driver.manage().timeouts().implicitlyWait(Long.parseLong(prop.getProperty("impl_time")), TimeUnit.SECONDS);
     }
 
-    public void waitVisibility(WebElement el){
+    public void waitVisibility(WebElement el) {
         WebDriverWait wait = new WebDriverWait(driver, Long.parseLong(prop.getProperty("visibility_time")));
         wait.until(ExpectedConditions.visibilityOf(el));
     }
-    public void waitClick(WebElement el){
+
+    public void waitClick(WebElement el) {
         WebDriverWait wait = new WebDriverWait(driver, Long.parseLong(prop.getProperty("click_time")));
         wait.until(ExpectedConditions.elementToBeClickable(el));
     }
