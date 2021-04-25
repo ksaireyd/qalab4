@@ -1,40 +1,37 @@
 package tests;
 
-import org.testng.Assert;
-import org.testng.annotations.DataProvider;
+import business.AuthActions;
+import business.MessageActions;
+import data.DataReader;
 import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
 
-import org.w3c.dom.Element;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
 public class SendingTest extends BaseTest {
+    DataReader dataReader = new DataReader();
+    final String ADDR = dataReader.getAddress();
+    final String TEXT = dataReader.getTextLetter();
+
     public SendingTest() throws IOException, SAXException, ParserConfigurationException {
     }
-    final String MAIL = getNode("email");
-    final String PASS = getNode("passwd");
-    final String ADDR = getNode("sendto");
-    final String TEXT = getNode("messText");
-
-
 
     @Test(dataProvider = "usersAccounts")
-    public void sendingTest(String email,String passwd) throws IOException {
-       getLoginPage().enterMail(email);
-       getLoginPage().implicityWaiter();
-       getLoginPage().enterPass(passwd);
-       getHomePage().clickCompose();
-       getHomePage().enterAddr(ADDR);
-       getHomePage().enterText(TEXT);
-       getHomePage().sendMess();
-        getHomePage().implicityWaiter();
-       getHomePage().openSentFolder();
-       getHomePage().implicityWaiter();
-       Assert.assertTrue(getHomePage().checkSending());
-        getHomePage().removeMess();
-    }
+    public void sendingTest(String email, String passwd) throws IOException {
+        AuthActions authActions = new AuthActions(getDriver());
+        MessageActions messageActions = new MessageActions(getDriver());
 
+        authActions.login(email, passwd);
+
+        messageActions.sendNewMessage(ADDR, TEXT);
+
+        messageActions.checkSending();
+
+        getHomePage().removeMessage();
+
+
+    }
 
 
 }
